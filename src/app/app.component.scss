@@ -2,11 +2,44 @@
   height: 100vh;
 }
 
-.mat-drawer-sidenav {
-  padding: 20px;
+.sidenav {
+  width: 300px;
 }
 
 .menu-icon {
   cursor: pointer;
   margin-right: 10px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  min-height: 56px;
+  border-bottom: 1px solid rgba($color: #000, $alpha: 0.25);
+}
+
+mat-toolbar,
+mat-toolbar-row {
+  height: 56px;
+  min-height: 56px;
+}
+
+.menu-items {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  li {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 48px;
+    cursor: pointer;
+    mat-icon {
+      margin-right: 16px;
+    }
+    &:hover {
+      background-color: rgba($color: #000, $alpha: 0.1);
+    }
+  }
 }
