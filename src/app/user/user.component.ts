@@ -21,9 +21,7 @@ export class UserComponent {
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddUserComponent, {
-      data: {},
-    });
+    const dialogRef = this.dialog.open(AddUserComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');

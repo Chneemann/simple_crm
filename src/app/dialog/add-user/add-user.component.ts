@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -12,7 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DialogData, UserComponent } from '../../user/user.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { User } from '../../models/user.class';
-
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 @Component({
   selector: 'app-add-user',
   standalone: true,
@@ -33,6 +33,7 @@ export class AddUserComponent {
   birthDate!: Date;
 
   constructor(
+    private firestore: Firestore,
     public dialogRef: MatDialogRef<UserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
@@ -43,6 +44,14 @@ export class AddUserComponent {
 
   saveUser() {
     this.user.birthDate = this.birthDate.getTime();
-    console.log(this.user);
+    this.addNewUser();
+  }
+
+  async addNewUser() {
+    await addDoc(collection(this.firestore, 'user'), this.user.toJson()).catch(
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 }
