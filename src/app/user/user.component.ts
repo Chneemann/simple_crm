@@ -8,12 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { User } from '../models/user.class';
-import {
-  Firestore,
-  doc,
-  onSnapshot,
-  collection,
-} from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection } from '@angular/fire/firestore';
 
 export interface DialogData {}
 
@@ -54,19 +49,6 @@ export class UserComponent {
         console.info('No such document!');
       }
     });
-  }
-
-  showUser(userId: string) {
-    onSnapshot(
-      doc(collection(this.firestore, 'user'), userId),
-      (documentSnapshot) => {
-        if (documentSnapshot.exists()) {
-          console.log(documentSnapshot.data());
-        } else {
-          console.info('No such document!');
-        }
-      }
-    );
   }
 
   openDialog(): void {
