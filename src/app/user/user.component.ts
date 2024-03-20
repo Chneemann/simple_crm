@@ -7,6 +7,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { User } from '../models/user.class';
+import {
+  Firestore,
+  doc,
+  onSnapshot,
+  collection,
+  DocumentData,
+} from '@angular/fire/firestore';
 
 export interface DialogData {}
 
@@ -25,8 +32,18 @@ export interface DialogData {}
 })
 export class UserComponent {
   user = new User();
+  allUsers: any[] = [];
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private firestore: Firestore) {}
+
+  ngOnInit() {
+    onSnapshot(collection(this.firestore, 'user'), (list) => {
+      this.allUsers = [];
+      list.forEach((doc) => {
+        this.allUsers.push(doc.data());
+      });
+    });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {});

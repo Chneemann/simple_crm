@@ -2,19 +2,16 @@
   <mat-card-content>
     <table class="user-table">
       <tr>
-        <th>Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
         <th>E-Mail</th>
         <th>City</th>
       </tr>
-      <tr>
-        <td>asdasd</td>
-        <td>asdasd</td>
-        <td>asdasd</td>
-      </tr>
-      <tr>
-        <td>asdasd</td>
-        <td>asdasd</td>
-        <td>asdasd</td>
+      <tr *ngFor="let user of allUsers">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.mail }}</td>
+        <td>{{ user.city }}</td>
       </tr>
     </table>
   </mat-card-content>
