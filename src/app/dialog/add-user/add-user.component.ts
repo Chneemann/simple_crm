@@ -43,10 +43,6 @@ export class AddUserComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   saveUser() {
     this.loading = true;
     this.user.birthDate = this.birthDate.getTime();
@@ -62,5 +58,10 @@ export class AddUserComponent {
         console.log('Document written with ID: ', docRef?.id);
       });
     this.loading = false;
+    this.dialogClose();
+  }
+
+  dialogClose(): void {
+    this.dialogRef.close();
   }
 }
