@@ -13,10 +13,15 @@
 
 .logo-container {
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 0 16px;
   min-height: 56px;
   border-bottom: 1px solid rgba($color: #000, $alpha: 0.04);
+  img {
+    max-width: 100%;
+    height: 50px;
+  }
 }
 
 mat-toolbar,
