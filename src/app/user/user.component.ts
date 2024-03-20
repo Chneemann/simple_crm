@@ -37,12 +37,33 @@ export class UserComponent {
   constructor(public dialog: MatDialog, private firestore: Firestore) {}
 
   ngOnInit() {
+    this.updateAllUsers();
+  }
+
+  updateAllUsers() {
     onSnapshot(collection(this.firestore, 'user'), (list) => {
       this.allUsers = [];
       list.forEach((doc) => {
-        this.allUsers.push(doc.data());
+        const userData = doc.data();
+        userData['id'] = doc.id;
+        this.allUsers.push(userData);
+        console.log(this.allUsers);
       });
     });
+  }
+
+  showUser(userId: string) {
+    onSnapshot(
+      doc(collection(this.firestore, 'user'), userId),
+      (documentSnapshot) => {
+        if (documentSnapshot.exists()) {
+          const gameData = documentSnapshot.data();
+          console.log(gameData);
+        } else {
+          console.log('No such document!');
+        }
+      }
+    );
   }
 
   openDialog(): void {
