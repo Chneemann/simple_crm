@@ -42,13 +42,16 @@ export class UserComponent {
 
   updateAllUsers() {
     onSnapshot(collection(this.firestore, 'user'), (list) => {
-      this.allUsers = [];
-      list.forEach((doc) => {
-        const userData = doc.data();
-        userData['id'] = doc.id;
-        this.allUsers.push(userData);
-        console.log(this.allUsers);
-      });
+      if (!list.empty) {
+        this.allUsers = [];
+        list.forEach((doc) => {
+          const userData = doc.data();
+          userData['id'] = doc.id;
+          this.allUsers.push(userData);
+        });
+      } else {
+        console.info('No such document!');
+      }
     });
   }
 
@@ -57,10 +60,9 @@ export class UserComponent {
       doc(collection(this.firestore, 'user'), userId),
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
-          const gameData = documentSnapshot.data();
-          console.log(gameData);
+          console.log(documentSnapshot.data());
         } else {
-          console.log('No such document!');
+          console.info('No such document!');
         }
       }
     );
