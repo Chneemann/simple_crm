@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -12,7 +13,6 @@ import {
   doc,
   onSnapshot,
   collection,
-  DocumentData,
 } from '@angular/fire/firestore';
 
 export interface DialogData {}
@@ -21,6 +21,7 @@ export interface DialogData {}
   selector: 'app-user',
   standalone: true,
   imports: [
+    RouterModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
