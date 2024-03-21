@@ -11,6 +11,8 @@ import {
   collection,
 } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
+import { MatDialog } from '@angular/material/dialog';
+import { EditUserComponent } from '../../dialog/edit-user/edit-user.component';
 
 @Component({
   selector: 'app-detail',
@@ -20,14 +22,17 @@ import { User } from '../../models/user.class';
   styleUrl: './user-detail.component.scss',
 })
 export class UserDetailComponent {
-  constructor(private firestore: Firestore, private route: ActivatedRoute) {}
+  constructor(
+    private firestore: Firestore,
+    private route: ActivatedRoute,
+    public dialog: MatDialog
+  ) {}
 
   currentUser: User = new User();
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const userId = params['id'];
-      this.showUser(userId);
+      this.showUser(params['id']);
     });
   }
 
@@ -37,6 +42,7 @@ export class UserDetailComponent {
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
           this.currentUser = new User(documentSnapshot.data());
+          this.currentUser.id = documentSnapshot.id;
         } else {
           console.info('No such document!');
         }
@@ -44,9 +50,10 @@ export class UserDetailComponent {
     );
   }
 
-  editUserDetaiMenu() {}
-
-  editAdressMenu() {}
+  editUserMenu() {
+    const dialog = this.dialog.open(EditUserComponent);
+    dialog.componentInstance.user = this.currentUser;
+  }
 
   getBirthDateTime() {
     const birthDate = new Date(this.currentUser.birthDate);
