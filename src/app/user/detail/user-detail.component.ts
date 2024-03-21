@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import {
   Firestore,
   doc,
@@ -14,7 +15,7 @@ import { User } from '../../models/user.class';
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, MatButtonModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule, MatMenuModule],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
 })
@@ -43,7 +44,9 @@ export class UserDetailComponent {
     );
   }
 
-  openAdressDialog() {}
+  editUserDetaiMenu() {}
+
+  editAdressMenu() {}
 
   getBirthDateTime() {
     const birthDate = new Date(this.currentUser.birthDate);

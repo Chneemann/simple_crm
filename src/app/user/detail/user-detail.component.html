@@ -1,4 +1,15 @@
 <mat-card>
+  <button
+    mat-icon-button
+    color="primary"
+    class="pin-right-upper-corner"
+    [matMenuTriggerFor]="userMenu"
+  >
+    <mat-icon>more_vert</mat-icon>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="editUserDetaiMenu()">edit</button>
+    </mat-menu>
+  </button>
   <mat-card-content class="user-detail-header">
     <img class="user-img" src="./../../../assets/img/profile-m.png" alt="" />
     <div class="user-details">
@@ -12,10 +23,13 @@
   <button
     mat-icon-button
     color="primary"
-    (click)="openAdressDialog()"
     class="pin-right-upper-corner"
+    [matMenuTriggerFor]="addressMenu"
   >
     <mat-icon>more_vert</mat-icon>
+    <mat-menu #addressMenu="matMenu">
+      <button mat-menu-item (click)="editAdressMenu()">edit</button>
+    </mat-menu>
   </button>
   <mat-card-header>
     <mat-card-title>Address</mat-card-title>
