@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import {
   Firestore,
   doc,
@@ -12,7 +14,7 @@ import { User } from '../../models/user.class';
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
 })
@@ -40,6 +42,8 @@ export class UserDetailComponent {
       }
     );
   }
+
+  openAdressDialog() {}
 
   getBirthDateTime() {
     const birthDate = new Date(this.currentUser.birthDate);
