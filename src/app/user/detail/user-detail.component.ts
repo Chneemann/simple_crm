@@ -7,6 +7,7 @@ import {
   onSnapshot,
   collection,
 } from '@angular/fire/firestore';
+import { User } from '../../models/user.class';
 
 @Component({
   selector: 'app-detail',
@@ -17,6 +18,8 @@ import {
 })
 export class UserDetailComponent {
   constructor(private firestore: Firestore, private route: ActivatedRoute) {}
+
+  currentUser: User = new User();
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -30,11 +33,27 @@ export class UserDetailComponent {
       doc(collection(this.firestore, 'user'), userId),
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
-          console.log(documentSnapshot.data());
+          this.currentUser = new User(documentSnapshot.data());
         } else {
           console.info('No such document!');
         }
       }
+    );
+  }
+
+  getBirthDateTime() {
+    const birthDate = new Date(this.currentUser.birthDate);
+    const currentDayOfMonth = birthDate.getDate().toString().padStart(2, '0');
+    const currentMonth = (birthDate.getMonth() + 1).toString().padStart(2, '0');
+    const currentYear = birthDate.getFullYear();
+
+    return (
+      currentMonth +
+      '/' +
+      currentDayOfMonth +
+      '/' +
+      currentYear +
+      ' (MM/DD/YYYY)'
     );
   }
 }

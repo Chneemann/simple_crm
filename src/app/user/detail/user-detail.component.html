@@ -2,9 +2,9 @@
   <mat-card-content class="user-detail-header">
     <img class="user-img" src="./../../../assets/img/profile-m.png" alt="" />
     <div class="user-details">
-      <h2>Olav Schulz</h2>
+      <h2>{{ currentUser.firstName }}, {{ currentUser.lastName }}</h2>
       <br />
-      Email(at)email.de
+      {{ currentUser.mail }}
     </div>
   </mat-card-content>
 </mat-card>
@@ -13,7 +13,15 @@
     <mat-card-title>Address</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    Street<br />
-    PLZ, City
+    {{ currentUser.street }}<br />
+    {{ currentUser.zipCode }}, {{ currentUser.city }}
+  </mat-card-content>
+</mat-card>
+<mat-card class="mt-32">
+  <mat-card-header>
+    <mat-card-title>Birthday</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{ getBirthDateTime() }}
   </mat-card-content>
 </mat-card>
