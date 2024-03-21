@@ -52,7 +52,7 @@ export class UserDetailComponent {
 
   editUserMenu() {
     const dialog = this.dialog.open(EditUserComponent);
-    dialog.componentInstance.user = this.currentUser;
+    dialog.componentInstance.user = new User(this.currentUser.toJson());
   }
 
   getBirthDateTime() {

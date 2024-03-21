@@ -38,7 +38,7 @@
         <mat-label>{{ getBirthDateTime() }} </mat-label>
         <input
           [disabled]="loading"
-          [(ngModel)]="user.birthDate"
+          [(ngModel)]="birthDate"
           matInput
           [matDatepicker]="picker"
           placeholder="Birth Date (MM/DD/YYYY)"

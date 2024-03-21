@@ -35,6 +35,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditUserComponent {
   loading = false;
+  birthDate!: Date;
   user!: User;
 
   constructor(
@@ -48,10 +49,26 @@ export class EditUserComponent {
   }
 
   async updateUser(userId: string) {
-    await updateDoc(doc(this.firestore, 'user', userId), {}).catch((err) => {
+    await updateDoc(
+      doc(collection(this.firestore, 'user'), userId),
+      this.getCleanJson(this.user)
+    ).catch((err) => {
       console.error(err);
     });
-    this.loading = false;
+  }
+
+  getCleanJson(user: User): {} {
+    this.user.birthDate = this.birthDate.getTime();
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      mail: user.mail,
+      birthDate: user.birthDate,
+      street: user.street,
+      zipCode: user.zipCode,
+      city: user.city,
+    };
   }
 
   dialogClose(): void {
