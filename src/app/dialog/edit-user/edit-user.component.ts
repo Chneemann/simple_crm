@@ -37,6 +37,7 @@ export class EditUserComponent {
   loading = false;
   birthDate!: Date;
   user!: User;
+  userId!: string;
 
   constructor(
     private firestore: Firestore,
@@ -45,7 +46,7 @@ export class EditUserComponent {
 
   saveUser() {
     this.loading = true;
-    this.updateUser(this.user.id);
+    this.updateUser(this.userId);
   }
 
   async updateUser(userId: string) {
@@ -58,9 +59,10 @@ export class EditUserComponent {
   }
 
   getCleanJson(user: User): {} {
-    this.user.birthDate = this.birthDate.getTime();
+    if (this.birthDate) {
+      this.user.birthDate = this.birthDate.getTime();
+    }
     return {
-      id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       mail: user.mail,

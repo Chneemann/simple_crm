@@ -29,9 +29,11 @@ export class UserDetailComponent {
   ) {}
 
   currentUser: User = new User();
+  currentUserId!: string;
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
+      this.currentUserId = params['id'];
       this.showUser(params['id']);
     });
   }
@@ -42,7 +44,7 @@ export class UserDetailComponent {
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
           this.currentUser = new User(documentSnapshot.data());
-          this.currentUser.id = documentSnapshot.id;
+          this.currentUserId = documentSnapshot.id;
         } else {
           console.info('No such document!');
         }
@@ -53,6 +55,7 @@ export class UserDetailComponent {
   editUserMenu() {
     const dialog = this.dialog.open(EditUserComponent);
     dialog.componentInstance.user = new User(this.currentUser.toJson());
+    dialog.componentInstance.userId = this.currentUserId;
   }
 
   getBirthDateTime() {
